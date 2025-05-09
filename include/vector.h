@@ -115,6 +115,17 @@ public:
 	size_t size() const{ return sz; }
 	size_t capacity() { return cp; }
 	size_t capacity() const { return cp; }
+
+	bool operator==(const vector& right)const {
+		if (sz != right.size()) return false;
+		for (size_t i = 0; i < right.size(); i++) {
+			if (right[i] != pMem[i]) return false;
+		}
+		return true;
+	}
+	bool operator!=(const vector& right)const {
+		return !(*this == right);
+	}
 	//<-------info methods end-------------->
 
 
