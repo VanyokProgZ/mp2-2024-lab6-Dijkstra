@@ -9,6 +9,8 @@
 #include <tuple>
 #include "write_html.h"
 
+
+
 #ifdef _WIN32
 #define OS_NAME_NT
 #endif
@@ -110,6 +112,9 @@ public:
     }
 
     void do_dijkstra(size_t start_vert) {
+        if (start_vert >= g.size()) {
+            throw std::out_of_range("out of range");
+        }
         dijkstra = new Dijkstra(start_vert, this);
     }
     l get_distance(size_t vert) {
@@ -139,11 +144,14 @@ public:
         std::cout << "type count of edges: ";
         is >> sz_l;
         l tmp;
-        g.g.resize(sz_vert);
+        g.g = vector<vector<std::pair<size_t, l>>>(sz_vert);
         size_t a, b;
         for (size_t i = 0; i < sz_l; i++) {
             std::cout << "type edge " << i << " in format 'a b c', where a and b - number of vertex (0...n-1), c - weight\n";
             is >> a >> b >> tmp;
+            if (a >= g.g.size() || b >= g.g.size()) {
+                throw std::out_of_range("big vertex number!");
+            }
             if (tmp < 0) throw std::logic_error("Elements must be greater 0");
             g.g.at(a).push_back(std::pair<size_t, l>{ b,tmp });
         }
