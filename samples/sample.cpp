@@ -39,11 +39,28 @@ int main() {
 			else if (q == "0") {
 				
 				//a = __rdtsc();
-				if (current_heap)
+				if (current_heap) {
 					std::cin >> g2;
-				else std::cin >> g1;
+					if (g2.good_vertex.size()) {
+						std::cout << "good started points for dijk: ";
+						for (auto el : g2.good_vertex) {
+							std::cout << el << ' ';
+						}
+						std::cout << '\n';
+					}
+				}
+				else { std::cin >> g1; 
+				if (g1.good_vertex.size()) {
+					std::cout << "good started points for dijk: ";
+					for (auto el : g1.good_vertex) {
+						std::cout << el << ' ';
+					}
+					std::cout << '\n';
+				}
+				}
 				//b = __rdtsc();
 				has_data[current_heap] = 1;
+				
 			}
 			else if (q == "1") {
 				//a = __rdtsc();
@@ -127,26 +144,44 @@ int main() {
 				//b = __rdtsc();
 			}
 			else if (q == "5") {
-				size_t vert, edg;
+				size_t vert;
+				double edg;
 				std::cout << "Input count of vertex: ";
 				std::cin >> vert;
-				std::cout << "Input count of edges: ";
+				std::cout << "Input procent of edges: ";
 				std::cin >> edg;
 				//a = __rdtsc();
-				if(current_heap)
-				g2.random_gen_graph(vert, edg);
+				if (current_heap) {
+					g2.random_gen_graph(vert, edg);
+					if (g2.good_vertex.size()) {
+						std::cout << "good started points for dijk: ";
+						for (auto el : g2.good_vertex) {
+							std::cout << el << ' ';
+						}
+						std::cout << '\n';
+					}
+				}
 				else {
 					g1.random_gen_graph(vert, edg);
+					if (g1.good_vertex.size()) {
+						std::cout << "good started points for dijk: ";
+						for (auto el : g1.good_vertex) {
+							std::cout << el << ' ';
+						}
+						std::cout << '\n';
+					}
 				}
 				//b = __rdtsc();
 				has_data[current_heap] = 1;
 			}
 			else if (q == "6") {
+				cleanup();
 				if (current_heap)
 					g2.visualisation();
 				else g1.visualisation();
 			}
 			else if (q == "e") {
+				cleanup();
 				std::cout << "Goodbye!\n";
 				exit(0);
 			}
@@ -159,6 +194,7 @@ int main() {
 		}
 	}
 	catch (const std::exception& e) {
+		cleanup();
 		std::cout << e.what() << '\n';
 	}
 }

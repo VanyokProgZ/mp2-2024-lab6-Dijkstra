@@ -67,5 +67,5 @@ void write_js_script(const std::string& name) {
 	FILE_ << "\n";
 	FILE_ << "</body>\n";
 	FILE_ << "</html\n";
-
+	FILE_.close();
 }
