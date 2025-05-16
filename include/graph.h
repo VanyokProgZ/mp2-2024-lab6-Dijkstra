@@ -147,7 +147,9 @@ public:
         if (!dijkstra) throw std::logic_error("do dijkstra first");
         return dijkstra->has_path(v);
     }
-	Graph(const vector<vector<std::pair<size_t, l>>>& g_): g(g_), dijkstra(nullptr){};
+	Graph(const vector<vector<std::pair<size_t, l>>>& g_): g(g_), dijkstra(nullptr){
+        check_graph(good_vertex);
+    };
 	size_t table_size()const { return g.size(); }
     size_t row_size(size_t j) const { return g.at(j).size(); }
 
@@ -191,19 +193,19 @@ public:
             size_t sz = 0;
             for (size_t i = 0; i < pre_vert.size()-1; i++) {
                 len = distrib_l(gen);
-                g[pre_vert[i]].push_back(std::pair(size_t, l) { pre_vert[i + 1], len });
+                g[pre_vert[i]].push_back(std::pair<size_t, l> { pre_vert[i + 1], len });
                 sz++;
             }
 
             vector<std::pair<size_t, size_t>> free;
             for (size_t i = 0; i < vert; i++) for (size_t j = 0; j < vert; j++) {
-                if (check(g[i], j)) {
+                if (!check(g[i], j)) {
                     free.push_back(std::pair<size_t, size_t>{i, j});
                 }
             }
             random_shuffle(free);
             size_t ind = 0;
-            while ((double)sz / (double)vert*(vert-1.0) < procent-0.0000000001) {
+            while ((double)sz / ((double)vert * (vert - 1.0)) < procent - 0.0000000001) {
                 sz++;
                 len = distrib_l(gen);
                 g[free[ind].first].push_back(std::pair<size_t, l>{free[ind].second,len });

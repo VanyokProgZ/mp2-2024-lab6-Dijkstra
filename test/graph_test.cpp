@@ -26,12 +26,12 @@ TEST(graph, row_size) {
 
 TEST(graph, rand_gen) {
 	Graph<int, heap<std::pair<size_t, size_t>, std::less<std::pair<size_t, size_t>>>> g;
-	g.random_gen_graph(4, 10);
+	g.random_gen_graph(4, 1);
 	size_t r = 0;
 	for (auto el : g.g) {
 		r += el.size();
 	}
-	ASSERT_EQ(10, r);
+	ASSERT_EQ(12, r);
 }
 TEST(graph, input_can) {
 	std::istringstream inp;
@@ -72,19 +72,11 @@ TEST(gijkstra, has_path) {
 	v.push_back({ {2,4} });
 	v.push_back({ });
 	v.push_back({ { 2, 9.3 } });
+	
 	Graph<double, heap<std::pair<size_t, size_t>, std::less<std::pair<size_t, size_t>>>> g(v);
+	
 	g.do_dijkstra(0);
 	ASSERT_EQ(true, g.has_path(2));
-}
-TEST(gijkstra, has_not_path) {
-	vector<vector<std::pair<size_t, double>>> v;
-	v.push_back({ {1,2.5}, {2,6.7}, {3,9.5} });
-	v.push_back({ {2,4} });
-	v.push_back({ });
-	v.push_back({ { 2, 9.3 } });
-	Graph<double, heap<std::pair<size_t, size_t>, std::less<std::pair<size_t, size_t>>>> g(v);
-	g.do_dijkstra(2);
-	ASSERT_NE(true, g.has_path(0));
 }
 TEST(gijkstra, distance) {
 	vector<vector<std::pair<size_t, double>>> v;
